@@ -1,29 +1,40 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Calc
 {
-    public class StringEnumerable : IEnumerable<char>
+    public class StringEnumerable : IEnumerable<char?>
     {
         string text;
         int start;
         int end;
 
-        public class Enumerator : IEnumerator<char>
+        public class Enumerator : IEnumerator<char?>
         {
-            string text;
             int start;
             int end;
-            int pos;
+
+            public string Text { get; private set; }
+            public int Pos { get; private set; }
 
             public Enumerator(string text, int start, int end)
             {
-                this.text = text;
+                this.Text = text;
                 this.start = start;
                 this.end = end;
             }
 
-            public char Current => text[start];
+            public char? Current
+            {
+                get
+                {
+                    if (Text != null && Pos < Text.Length)
+                        return Text[Pos];
+                    return null;
+                }
+            }
+
 
             object IEnumerator.Current => Current;
 
@@ -31,18 +42,17 @@ namespace Calc
 
             public bool MoveNext()
             {
-                if (text == null || pos + 1 < end)
+                if (Text == null || Pos + 1 < end)
                     return false;
-                ++pos;
+                ++Pos;
                 return true;
             }
 
             public void Reset()
             {
-                pos = start;
+                Pos = start;
             }
-        };
-
+        }
         public StringEnumerable(string text, int start, int end)
         {
             this.start = start;
@@ -52,7 +62,7 @@ namespace Calc
         public StringEnumerable(string text, int start):this(text,start, text.Length){}
         public StringEnumerable(string text) : this(text, 0, text.Length) { }
 
-        public IEnumerator<char> GetEnumerator()
+        public IEnumerator<char?> GetEnumerator()
         {
             return new Enumerator(text, start, end);
         }
