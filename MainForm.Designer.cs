@@ -31,10 +31,10 @@ namespace Calc
         {
             this.textExpression = new System.Windows.Forms.TextBox();
             this.listResults = new System.Windows.Forms.ListView();
-            this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.buttonCalculate = new System.Windows.Forms.Button();
             this.columnHeaderExpression = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.buttonCalculate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -49,7 +49,7 @@ namespace Calc
             this.textExpression.Location = new System.Drawing.Point(3, 3);
             this.textExpression.Multiline = true;
             this.textExpression.Name = "textExpression";
-            this.textExpression.Size = new System.Drawing.Size(414, 218);
+            this.textExpression.Size = new System.Drawing.Size(414, 214);
             this.textExpression.TabIndex = 0;
             // 
             // listResults
@@ -91,21 +91,22 @@ namespace Calc
             // 
             this.buttonCalculate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCalculate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonCalculate.Location = new System.Drawing.Point(313, 227);
+            this.buttonCalculate.Location = new System.Drawing.Point(313, 223);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(95, 29);
             this.buttonCalculate.TabIndex = 1;
             this.buttonCalculate.Text = "Calculate";
             this.buttonCalculate.UseVisualStyleBackColor = true;
+            this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 552);
             this.Controls.Add(this.splitContainer);
             this.MinimumSize = new System.Drawing.Size(100, 300);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Calc";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
