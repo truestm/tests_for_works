@@ -17,7 +17,7 @@ namespace Calc.Tokens
 
         public override void Calculate(Token token, Stack<object> stack)
         {
-            throw new NotImplementedException();
+            throw new Exception($"Not calculable token '{this}'.");
         }
 
         public override string ToString()

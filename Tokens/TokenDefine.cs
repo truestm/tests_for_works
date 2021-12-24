@@ -8,8 +8,10 @@ namespace Calc.Tokens
     {
         None,
         Const,
+        Function,
         Open,
         Close,
+        Delim,
         Binary,
         Unary
     };

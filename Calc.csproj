@@ -60,6 +60,7 @@
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\TokenDefine.cs" />
     <Compile Include="Tokenizer.cs" />
+    <Compile Include="Tokens\TokenDefineFunction.cs" />
     <Compile Include="Tokens\TokenDefineNumber.cs" />
     <Compile Include="Tokens\TokenDefineOperator.cs" />
     <Compile Include="Tokens\TokenDefineOperatorBinary.cs" />

@@ -16,19 +16,23 @@ namespace Calc
 
         private static readonly Dictionary<TokenType, HashSet<TokenType>> grammar = new Dictionary<TokenType, HashSet<TokenType>>
         {
-            { TokenType.None,   new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
-            { TokenType.Open,   new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
-            { TokenType.Unary,  new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
-            { TokenType.Const,  new HashSet<TokenType>{ TokenType.Binary, TokenType.Close } },
-            { TokenType.Close,  new HashSet<TokenType>{ TokenType.Binary, TokenType.Close } },
-            { TokenType.Binary, new HashSet<TokenType>{ TokenType.Open, TokenType.Unary, TokenType.Const } },
+            { TokenType.None,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Function } },
+            { TokenType.Open,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Close } },
+            { TokenType.Unary,    new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary } },
+            { TokenType.Const,    new HashSet<TokenType>{ TokenType.Binary, TokenType.Close, TokenType.Delim } },
+            { TokenType.Close,    new HashSet<TokenType>{ TokenType.Binary, TokenType.Close, TokenType.Delim } },
+            { TokenType.Binary,   new HashSet<TokenType>{ TokenType.Open,   TokenType.Unary, TokenType.Const, TokenType.Function } },
+            { TokenType.Function, new HashSet<TokenType>{ TokenType.Open } },
+            { TokenType.Delim,    new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
         };
 
         private static readonly TokenDefine[] defines = new TokenDefine[]
         {
             new TokenDefineOperator(TokenType.Open,  -1, '('),
             new TokenDefineOperator(TokenType.Close, -1, ')'),
+            new TokenDefineOperator(TokenType.Delim, -1, ','),
             new TokenDefineNumber(-1),
+            new TokenDefineFunction(-1),
             new TokenDefineOperatorBinary(6, '+', (l,r) => (double)l + (double)r),
             new TokenDefineOperatorBinary(6, '-', (l,r) => (double)l - (double)r),
             new TokenDefineOperatorUnary (9, '-', (x) => -(double)x),
@@ -84,6 +88,17 @@ namespace Calc
                     case TokenType.Const:
                         yield return token;
                         break;
+                    case TokenType.Function:
+                        stack.Push(token);
+                        break;
+                    case TokenType.Delim:
+                        while (stack.Count > 0 && stack.Peek().Define.TokenType != TokenType.Open)
+                        {
+                            yield return stack.Pop();
+                        }
+                        if (stack.Count == 0)
+                            throw new TokenException("Expected ( or ,");
+                        break;
                     case TokenType.Open:
                         stack.Push(token);
                         break;
@@ -92,9 +107,11 @@ namespace Calc
                         {
                             yield return stack.Pop();
                         }
-                        if (stack.Count == 0)
+                        if (stack.Count == 0 )
                             throw new TokenException("Unexpected )");
                         stack.Pop();
+                        if(stack.Count > 0 && stack.Peek().Define.TokenType == TokenType.Function)
+                            yield return stack.Pop();
                         break;
                     default:
                         while (stack.Count > 0 &&
