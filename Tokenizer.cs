@@ -8,14 +8,14 @@ namespace Calc
     {
         private static readonly Dictionary<TokenType, HashSet<TokenType>> grammar = new Dictionary<TokenType, HashSet<TokenType>>
         {
-            { TokenType.None,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Function } },
-            { TokenType.Open,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Close, TokenType.Function } },
-            { TokenType.Unary,    new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary } },
+            { TokenType.None,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open,  TokenType.Unary, TokenType.Function } },
+            { TokenType.Open,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open,  TokenType.Unary, TokenType.Function, TokenType.Close } },
+            { TokenType.Unary,    new HashSet<TokenType>{ TokenType.Const,  TokenType.Open,  TokenType.Function } },
             { TokenType.Const,    new HashSet<TokenType>{ TokenType.Binary, TokenType.Close, TokenType.Delim } },
             { TokenType.Close,    new HashSet<TokenType>{ TokenType.Binary, TokenType.Close, TokenType.Delim } },
-            { TokenType.Binary,   new HashSet<TokenType>{ TokenType.Open,   TokenType.Unary, TokenType.Const, TokenType.Function } },
+            { TokenType.Binary,   new HashSet<TokenType>{ TokenType.Const,  TokenType.Open,  TokenType.Unary, TokenType.Function } },
             { TokenType.Function, new HashSet<TokenType>{ TokenType.Open } },
-            { TokenType.Delim,    new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary, TokenType.Function } },
+            { TokenType.Delim,    new HashSet<TokenType>{ TokenType.Const,  TokenType.Open,  TokenType.Unary, TokenType.Function } },
         };
 
         private static readonly TokenDefine[] defines = new TokenDefine[]
