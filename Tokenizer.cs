@@ -8,6 +8,16 @@ namespace Calc
 {
     class Tokenizer
     {
+        private static readonly Dictionary<TokenType, HashSet<TokenType>> grammar = new Dictionary<TokenType, HashSet<TokenType>>
+        {
+            { TokenType.None,   new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
+            { TokenType.Open,   new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
+            { TokenType.Unary,  new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
+            { TokenType.Const,  new HashSet<TokenType>{ TokenType.Binary, TokenType.Close } },
+            { TokenType.Close,  new HashSet<TokenType>{ TokenType.Binary, TokenType.Close } },
+            { TokenType.Binary, new HashSet<TokenType>{ TokenType.Open, TokenType.Unary, TokenType.Const } },
+        };
+
         private static readonly TokenDefine[] defines = new TokenDefine[]
         {
             new TokenDefineOperator(TokenType.Open,  -1, '('),
@@ -15,6 +25,7 @@ namespace Calc
             new TokenDefineNumber(-1),
             new TokenDefineOperatorBinary(6, '+', (l,r) => (double)l + (double)r),
             new TokenDefineOperatorBinary(6, '-', (l,r) => (double)l - (double)r),
+            new TokenDefineOperatorUnary (9, '-', (x) => -(double)x),
             new TokenDefineOperatorBinary(8, '*', (l,r) => (double)l * (double)r),
             new TokenDefineOperatorBinary(8, '/', (l,r) => (double)l / (double)r),
         };
@@ -42,13 +53,15 @@ namespace Calc
             {
                 if (symbol.MoveNext())
                 {
+                    TokenType prevTokenType = TokenType.None;
                     while (true)
                     {
                         if (symbol.Current != null && !char.IsWhiteSpace(symbol.Current.Value))
                         {
-                            var define = defines.FirstOrDefault(x => x.Start(symbol.Current.Value));
+                            var define = defines.FirstOrDefault(x => grammar[prevTokenType].Contains(x.TokenType) && x.Start(symbol.Current.Value));
                             if (define == null)
                                 throw new Exception($"Token '{symbol.Current}' not defined.");
+                            prevTokenType = define.TokenType;
                             yield return define.Create(toStringUntil(symbol, define.End));
                         }
                         else

@@ -8,6 +8,7 @@ namespace Calc
 {
     public enum TokenType
     {
+        None,
         Const,
         Open,
         Close,
