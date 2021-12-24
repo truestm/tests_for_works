@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calc.Tokens;
+using System;
 using System.Windows.Forms;
 
 namespace Calc
@@ -29,7 +30,7 @@ namespace Calc
                 resultText = result.ToString();
 
             }
-            catch (Tokenizer.TokenException ex)
+            catch (TokenException ex)
             {
                 textError.Text = ex.Message;
                 return;

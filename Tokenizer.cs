@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Calc.Tokens;
 
 namespace Calc
 {
-    class Tokenizer
+    public class Tokenizer
     {
-        public class TokenException : Exception
-        {
-            public TokenException(string message):base(message)
-            {
-            }
-        };
-
         private static readonly Dictionary<TokenType, HashSet<TokenType>> grammar = new Dictionary<TokenType, HashSet<TokenType>>
         {
             { TokenType.None,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Function } },

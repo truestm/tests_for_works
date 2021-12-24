@@ -21,7 +21,7 @@ namespace Calc.Tokens
         public override Token Create(string value)
         {
             if (!functions.ContainsKey(value))
-                throw new Tokenizer.TokenException($"Unknown function '{value}'");
+                throw new TokenException($"Unknown function '{value}'");
 
             return base.Create(value);
         }
