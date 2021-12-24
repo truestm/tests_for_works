@@ -15,7 +15,7 @@ namespace Calc
             { TokenType.Close,    new HashSet<TokenType>{ TokenType.Binary, TokenType.Close, TokenType.Delim } },
             { TokenType.Binary,   new HashSet<TokenType>{ TokenType.Open,   TokenType.Unary, TokenType.Const, TokenType.Function } },
             { TokenType.Function, new HashSet<TokenType>{ TokenType.Open } },
-            { TokenType.Delim,    new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
+            { TokenType.Delim,    new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary, TokenType.Function } },
         };
 
         private static readonly TokenDefine[] defines = new TokenDefine[]
