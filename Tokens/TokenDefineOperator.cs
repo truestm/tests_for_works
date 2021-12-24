@@ -12,6 +12,8 @@ namespace Calc.Tokens
             Symbol = symbol;
         }
 
+        public TokenDefineOperator(TokenType tokenType, char symbol) : this(tokenType, -1, symbol) { }
+
         public override bool Start(char c) { return c == Symbol; }
         public override bool Match(char c) { return false; }
 

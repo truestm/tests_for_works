@@ -16,7 +16,7 @@ namespace Calc.Tokens
             { "pow",  CreateFunction((double x, double y) => Math.Pow(x,y))},
         };
 
-        public TokenDefineFunction(int precedence) : base(TokenType.Function, precedence) { }
+        public TokenDefineFunction() : base(TokenType.Function, -1) { }
 
         public override Token Create(string value)
         {

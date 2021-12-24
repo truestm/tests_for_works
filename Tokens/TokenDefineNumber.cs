@@ -4,7 +4,7 @@ namespace Calc.Tokens
 {
     public class TokenDefineNumber : TokenDefine<double>
     {
-        public TokenDefineNumber(int precedence) : base(TokenType.Const, precedence) { }
+        public TokenDefineNumber() : base(TokenType.Const, -1) { }
 
         public override void Calculate(Token<double> token, Stack<object> stack)
         {

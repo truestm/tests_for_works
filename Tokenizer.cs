@@ -9,7 +9,7 @@ namespace Calc
         private static readonly Dictionary<TokenType, HashSet<TokenType>> grammar = new Dictionary<TokenType, HashSet<TokenType>>
         {
             { TokenType.None,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Function } },
-            { TokenType.Open,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Close } },
+            { TokenType.Open,     new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary, TokenType.Close, TokenType.Function } },
             { TokenType.Unary,    new HashSet<TokenType>{ TokenType.Const,  TokenType.Open, TokenType.Unary } },
             { TokenType.Const,    new HashSet<TokenType>{ TokenType.Binary, TokenType.Close, TokenType.Delim } },
             { TokenType.Close,    new HashSet<TokenType>{ TokenType.Binary, TokenType.Close, TokenType.Delim } },
@@ -20,11 +20,11 @@ namespace Calc
 
         private static readonly TokenDefine[] defines = new TokenDefine[]
         {
-            new TokenDefineOperator(TokenType.Open,  -1, '('),
-            new TokenDefineOperator(TokenType.Close, -1, ')'),
-            new TokenDefineOperator(TokenType.Delim, -1, ','),
-            new TokenDefineNumber(-1),
-            new TokenDefineFunction(-1),
+            new TokenDefineOperator(TokenType.Open,  '('),
+            new TokenDefineOperator(TokenType.Close, ')'),
+            new TokenDefineOperator(TokenType.Delim, ','),
+            new TokenDefineNumber(),
+            new TokenDefineFunction(),
             new TokenDefineOperatorBinary(6, '+', (l,r) => (double)l + (double)r),
             new TokenDefineOperatorBinary(6, '-', (l,r) => (double)l - (double)r),
             new TokenDefineOperatorUnary (9, '-', (x) => -(double)x),
