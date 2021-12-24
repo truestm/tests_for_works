@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StringEnumerable.cs" />
+    <Compile Include="StringEnumerator.cs" />
     <Compile Include="Evaluator.cs" />
     <Compile Include="IEvaluator.cs" />
     <Compile Include="MainForm.cs">

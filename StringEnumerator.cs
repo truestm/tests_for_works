@@ -7,8 +7,8 @@ namespace Calc
 {
     public class StringEnumerator : IEnumerator<char?>
     {
-        int start;
-        int end;
+        readonly int start;
+        readonly int end;
 
         public string Text { get; private set; }
         public int Pos { get; private set; }
