@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Calc
+namespace Calc.Tokens
 {
     public enum TokenType
     {
@@ -38,103 +35,22 @@ namespace Calc
         }
     };
 
-    public class TokenDefineNumber : TokenDefine
+    public abstract class TokenDefine<TValue> : TokenDefine
     {
-        public TokenDefineNumber(int precedence) : base(TokenType.Const, precedence){}
-
-        public override void Calculate(Token token, Stack<object> stack)
+        public TokenDefine(TokenType tokenType, int precedence):base(tokenType, precedence)
         {
-            stack.Push(token.Value);
+        }
+        
+        public sealed override void Calculate(Token token, Stack<object> stack)
+        {
+            Calculate((Token<TValue>)token, stack);
         }
 
-        public override bool Start(char c) { return char.IsDigit(c); }
-        public override bool Match(char c) { return char.IsDigit(c) || c == '.'; }
+        public abstract void Calculate(Token<TValue> token, Stack<object> stack);
 
         public override Token Create(string value)
         {
-            return new Token(this, double.Parse(value, CultureInfo.InvariantCulture));
+            return new Token<TValue>(this, (TValue)Convert.ChangeType(value, typeof(TValue), CultureInfo.InvariantCulture));
         }
-    }
-
-    public class TokenDefineOperator : TokenDefine
-    {
-        char Symbol;
-
-        public TokenDefineOperator(TokenType tokenType, int precedence, char symbol) : base(tokenType, precedence)
-        {
-            Symbol = symbol;
-        }
-
-        public override bool Start(char c) { return c == Symbol; }
-        public override bool Match(char c) { return false; }
-
-        public override void Calculate(Token token, Stack<object> stack)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string ToString()
-        {
-            return Symbol.ToString();
-        }
-    }
-    
-    public class TokenDefineOperatorBinary : TokenDefineOperator
-    {
-        Func<object, object, object> Operation;
-
-        public TokenDefineOperatorBinary(int precedence, char symbol, Func<object, object, object> operation): 
-            base(TokenType.Binary, precedence, symbol)
-        {
-            Operation = operation;
-        }
-
-        public override void Calculate(Token token, Stack<object> stack)
-        {
-            var right = stack.Pop();
-            var left = stack.Pop();
-            var result = Operation(left, right);
-            stack.Push(result);
-        }
-    }
-
-    public class TokenDefineOperatorUnary : TokenDefineOperator
-    {
-        Func<object, object> Operation;
-
-        public TokenDefineOperatorUnary(int precedence, char symbol, Func<object, object> operation) :
-            base(TokenType.Unary, precedence, symbol)
-        {
-            Operation = operation;
-        }
-
-        public override void Calculate(Token token, Stack<object> stack)
-        {
-            var right = stack.Pop();
-            var result = Operation(right);
-            stack.Push(result);
-        }
-    }
-
-    public class Token
-    {
-        public TokenDefine Define { get; private set; }
-        public object Value;
-        
-        public Token(TokenDefine define, object value = null )
-        {
-            Define = define;
-            Value = value;
-        }
-
-        public void Calculate(Stack<object> stack)
-        {
-            Define.Calculate(this, stack);
-        }
-
-        public override string ToString()
-        {
-            return Value?.ToString() ?? Define.ToString();
-        }
-    }
+    };
 }
