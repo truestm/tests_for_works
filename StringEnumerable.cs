@@ -1,76 +1,66 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Calc
 {
-    public class StringEnumerable : IEnumerable<char?>
+    public class StringEnumerator : IEnumerator<char?>
     {
-        string text;
         int start;
         int end;
 
-        public class Enumerator : IEnumerator<char?>
+        public string Text { get; private set; }
+        public int Pos { get; private set; }
+
+        public StringEnumerator(string text, int start, int end)
         {
-            int start;
-            int end;
-
-            public string Text { get; private set; }
-            public int Pos { get; private set; }
-
-            public Enumerator(string text, int start, int end)
-            {
-                this.Text = text;
-                this.start = start;
-                this.end = end;
-                Reset();
-            }
-
-            public char? Current
-            {
-                get
-                {
-                    if (Text != null && Pos >= start && Pos < Text.Length)
-                        return Text[Pos];
-                    return null;
-                }
-            }
-
-
-            object IEnumerator.Current => Current;
-
-            public void Dispose(){}
-
-            public bool MoveNext()
-            {
-                if (Text == null || Pos >= end)
-                    return false;
-                return ++Pos < end;
-            }
-
-            public void Reset()
-            {
-                Pos = start - 1;
-            }
-        }
-        public StringEnumerable(string text, int start, int end)
-        {
-            this.text = text;
+            this.Text = text;
             this.start = start;
             this.end = end;
+            Reset();
         }
 
-        public StringEnumerable(string text, int start):this(text,start, text.Length){}
-        public StringEnumerable(string text) : this(text, 0, text.Length) { }
-
-        public IEnumerator<char?> GetEnumerator()
+        public char? Current
         {
-            return new Enumerator(text, start, end);
+            get
+            {
+                if (Text != null && Pos >= start && Pos < Text.Length)
+                    return Text[Pos];
+                return null;
+            }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+
+        object IEnumerator.Current => Current;
+
+        public void Dispose(){}
+
+        public bool MoveNext()
         {
-            return GetEnumerator();
+            if (Text == null || Pos >= end)
+                return false;
+            return ++Pos < end;
+        }
+
+        public void Reset()
+        {
+            Pos = start - 1;
+        }
+
+        public static string Substring(IEnumerator<char?> symbol, Func<char, bool> predicate)
+        {
+            var str = new StringBuilder().Append(symbol.Current);
+            while (symbol.MoveNext() && predicate(symbol.Current.Value))
+            {
+                str.Append(symbol.Current);
+            }
+            return str.ToString();
+        }
+
+        public string Substring(Func<char, bool> predicate)
+        {
+            return Substring(this, predicate);
         }
     }
 }

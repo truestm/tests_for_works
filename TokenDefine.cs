@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace Calc
 
         public override Token Create(string value)
         {
-            return new Token(this, double.Parse(value));
+            return new Token(this, double.Parse(value, CultureInfo.InvariantCulture));
         }
     }
 

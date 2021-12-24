@@ -8,6 +8,13 @@ namespace Calc
 {
     class Tokenizer
     {
+        public class TokenException : Exception
+        {
+            public TokenException(string message):base(message)
+            {
+            }
+        };
+
         private static readonly Dictionary<TokenType, HashSet<TokenType>> grammar = new Dictionary<TokenType, HashSet<TokenType>>
         {
             { TokenType.None,   new HashSet<TokenType>{ TokenType.Const, TokenType.Open, TokenType.Unary } },
@@ -37,19 +44,9 @@ namespace Calc
             this.text = text;
         }
 
-        static string substring(IEnumerator<char?> e, Func<char, bool> predicate)
-        {
-            var s = new StringBuilder().Append(e.Current);
-            while (e.MoveNext() && predicate(e.Current.Value))
-            {
-                s.Append(e.Current);
-            }
-            return s.ToString();
-        }
-
         public IEnumerable<Token> Tokens()
         {
-            using (var symbol = new StringEnumerable.Enumerator(text, 0, text.Length))
+            using (var symbol = new StringEnumerator(text, 0, text.Length))
             {
                 if (symbol.MoveNext())
                 {
@@ -58,11 +55,15 @@ namespace Calc
                     {
                         if (symbol.Current != null && !char.IsWhiteSpace(symbol.Current.Value))
                         {
-                            var define = defines.FirstOrDefault(x => grammar[prevTokenType].Contains(x.TokenType) && x.Start(symbol.Current.Value));
+                            var define = defines.Where(x => grammar[prevTokenType].Contains(x.TokenType)).
+                                FirstOrDefault(x => x.Start(symbol.Current.Value));
+
                             if (define == null)
-                                throw new Exception($"Invalid token '{symbol.Current}'.");
+                                throw new TokenException($"Invalid token '{symbol.Current}'.");
+
                             prevTokenType = define.TokenType;
-                            yield return define.Create(substring(symbol, define.Match));
+
+                            yield return define.Create(symbol.Substring(define.Match));
                         }
                         else
                         {
@@ -93,7 +94,7 @@ namespace Calc
                             yield return stack.Pop();
                         }
                         if (stack.Count == 0)
-                            throw new Exception("Unexpected )");
+                            throw new TokenException("Unexpected )");
                         stack.Pop();
                         break;
                     default:
@@ -110,7 +111,7 @@ namespace Calc
             while (stack.Count != 0)
             {
                 if(stack.Peek().Define.TokenType == TokenType.Open)
-                    throw new Exception("Unexpected (");
+                    throw new TokenException("Unexpected (");
                 yield return stack.Pop();
             }
         }
