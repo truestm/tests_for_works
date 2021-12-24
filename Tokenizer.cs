@@ -37,10 +37,10 @@ namespace Calc
             this.text = text;
         }
 
-        static string toStringUntil(IEnumerator<char?> e, Func<char, bool> predicate)
+        static string substring(IEnumerator<char?> e, Func<char, bool> predicate)
         {
             var s = new StringBuilder().Append(e.Current);
-            while (e.MoveNext() && !predicate(e.Current.Value))
+            while (e.MoveNext() && predicate(e.Current.Value))
             {
                 s.Append(e.Current);
             }
@@ -60,9 +60,9 @@ namespace Calc
                         {
                             var define = defines.FirstOrDefault(x => grammar[prevTokenType].Contains(x.TokenType) && x.Start(symbol.Current.Value));
                             if (define == null)
-                                throw new Exception($"Token '{symbol.Current}' not defined.");
+                                throw new Exception($"Invalid token '{symbol.Current}'.");
                             prevTokenType = define.TokenType;
-                            yield return define.Create(toStringUntil(symbol, define.End));
+                            yield return define.Create(substring(symbol, define.Match));
                         }
                         else
                         {

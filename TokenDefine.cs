@@ -28,7 +28,7 @@ namespace Calc
         }
 
         public abstract bool Start(char c);
-        public abstract bool End(char c);
+        public abstract bool Match(char c);
         public abstract void Calculate(Token token, Stack<object> stack);
 
         public virtual Token Create(string value)
@@ -47,7 +47,7 @@ namespace Calc
         }
 
         public override bool Start(char c) { return char.IsDigit(c); }
-        public override bool End(char c)   { return !char.IsDigit(c) && c != '.'; }
+        public override bool Match(char c) { return char.IsDigit(c) || c == '.'; }
 
         public override Token Create(string value)
         {
@@ -65,7 +65,7 @@ namespace Calc
         }
 
         public override bool Start(char c) { return c == Symbol; }
-        public override bool End(char c) { return true; }
+        public override bool Match(char c) { return false; }
 
         public override void Calculate(Token token, Stack<object> stack)
         {
