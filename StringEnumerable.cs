@@ -23,13 +23,14 @@ namespace Calc
                 this.Text = text;
                 this.start = start;
                 this.end = end;
+                Reset();
             }
 
             public char? Current
             {
                 get
                 {
-                    if (Text != null && Pos < Text.Length)
+                    if (Text != null && Pos >= start && Pos < Text.Length)
                         return Text[Pos];
                     return null;
                 }
@@ -42,19 +43,19 @@ namespace Calc
 
             public bool MoveNext()
             {
-                if (Text == null || Pos + 1 < end)
+                if (Text == null || Pos >= end)
                     return false;
-                ++Pos;
-                return true;
+                return ++Pos < end;
             }
 
             public void Reset()
             {
-                Pos = start;
+                Pos = start - 1;
             }
         }
         public StringEnumerable(string text, int start, int end)
         {
+            this.text = text;
             this.start = start;
             this.end = end;
         }

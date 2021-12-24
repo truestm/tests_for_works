@@ -8,80 +8,97 @@ namespace Calc
 {
     class Tokenizer
     {
-        public enum LexemeType
+        private static readonly TokenDefine[] defines = new TokenDefine[]
         {
-            Const,
-            Add,
-            Sub,
-            Mul,
-            Div
-        }
-
-        public class Lexeme
-        {
-            public LexemeType LexemeType { get; private set; }
-            public object Value { get; private set; }
-
-            public Lexeme(LexemeType type, object value = null)
-            {
-                LexemeType = type;
-                Value = value;
-            }
-        }
-
-        static readonly Dictionary<char, LexemeType> operators = new Dictionary<char, LexemeType>()
-        {
-            { '+', LexemeType.Add },
-            { '-', LexemeType.Sub },
-            { '*', LexemeType.Mul },
-            { '/', LexemeType.Div },
+            new TokenDefineOperator(TokenType.Open,  -1, '('),
+            new TokenDefineOperator(TokenType.Close, -1, ')'),
+            new TokenDefineNumber(-1),
+            new TokenDefineOperatorBinary(6, '+', (l,r) => (double)l + (double)r),
+            new TokenDefineOperatorBinary(6, '-', (l,r) => (double)l - (double)r),
+            new TokenDefineOperatorBinary(8, '*', (l,r) => (double)l * (double)r),
+            new TokenDefineOperatorBinary(8, '/', (l,r) => (double)l / (double)r),
         };
-
-        string text;
+        
+        readonly string text;
 
         public Tokenizer(string text)
         {
             this.text = text;
         }
 
-        static string toStringUntil(IEnumerator<char?> e, Func<char?,bool> predicate )
+        static string toStringUntil(IEnumerator<char?> e, Func<char, bool> predicate)
         {
-            var s = new StringBuilder();
-            do
+            var s = new StringBuilder().Append(e.Current);
+            while (e.MoveNext() && !predicate(e.Current.Value))
             {
-                if (!predicate(e.Current))
-                    break;
                 s.Append(e.Current);
             }
-            while (e.MoveNext());
             return s.ToString();
         }
 
-        public IEnumerable<Lexeme> lexemes()
+        public IEnumerable<Token> Tokens()
         {
-            using (var e = new StringEnumerable.Enumerator(text, 0, text.Length))
+            using (var symbol = new StringEnumerable.Enumerator(text, 0, text.Length))
             {
-                if (e.MoveNext())
+                if (symbol.MoveNext())
                 {
-                    
-                    do
+                    while (true)
                     {
-                        if (e.Current != null && !char.IsWhiteSpace(e.Current.Value))
+                        if (symbol.Current != null && !char.IsWhiteSpace(symbol.Current.Value))
                         {
-                            if (char.IsDigit(e.Current.Value))
-                            {
-                                var value = Double.Parse(toStringUntil(e, c => c != null && (char.IsDigit(e.Current.Value) || c == '.')));
-                                yield return new Lexeme(LexemeType.Const, value);
-                                continue;
-                            }
-                            if(operators.TryGetValue(e.Current.Value, out var lexemeType))
-                            {
-                                yield return new Lexeme(lexemeType);
-                            }
+                            var define = defines.FirstOrDefault(x => x.Start(symbol.Current.Value));
+                            if (define == null)
+                                throw new Exception($"Token '{symbol.Current}' not defined.");
+                            yield return define.Create(toStringUntil(symbol, define.End));
+                        }
+                        else
+                        {
+                            if (!symbol.MoveNext())
+                                break;
                         }
                     }
-                    while (e.MoveNext());
                 }
+            }
+        }
+
+        public IEnumerable<Token> RPNTokens()
+        {
+            var stack = new Stack<Token>();
+            foreach (var token in Tokens())
+            {
+                switch(token.Define.TokenType)
+                {
+                    case TokenType.Const:
+                        yield return token;
+                        break;
+                    case TokenType.Open:
+                        stack.Push(token);
+                        break;
+                    case TokenType.Close:
+                        while (stack.Count > 0 && stack.Peek().Define.TokenType != TokenType.Open)
+                        {
+                            yield return stack.Pop();
+                        }
+                        if (stack.Count == 0)
+                            throw new Exception("Unexpected )");
+                        stack.Pop();
+                        break;
+                    default:
+                        while (stack.Count > 0 &&
+                            stack.Peek().Define.TokenType != TokenType.Open &&
+                            stack.Peek().Define.Precedence >= token.Define.Precedence)
+                        {
+                            yield return stack.Pop();
+                        }
+                        stack.Push(token);
+                        break;
+                }
+            }
+            while (stack.Count != 0)
+            {
+                if(stack.Peek().Define.TokenType == TokenType.Open)
+                    throw new Exception("Unexpected (");
+                yield return stack.Pop();
             }
         }
     }

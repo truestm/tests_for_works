@@ -8,9 +8,21 @@ namespace Calc
 {
     public class Evaluator : IEvaluator
     {
-        public async Task<object> EvalAsync(string expression)
+        public Task<object> EvalAsync(string expression)
         {
-            return expression;
+            return Task.Run(() => Eval(expression));
+        }
+
+        object Eval(string expression)
+        {
+            var tokenizer = new Tokenizer(expression);
+            var tokens = tokenizer.RPNTokens().ToArray();
+
+            var stack = new Stack<object>();
+            foreach (var token in tokens)
+                token.Calculate(stack);
+
+            return $"{string.Join(" ", tokens.Select(x => x.ToString()))} = {stack.Pop()}";
         }
     }
 }

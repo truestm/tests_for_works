@@ -51,6 +51,7 @@ namespace Calc
             this.textExpression.Name = "textExpression";
             this.textExpression.Size = new System.Drawing.Size(414, 214);
             this.textExpression.TabIndex = 0;
+            this.textExpression.Text = "1+2*2+1";
             // 
             // listResults
             // 
@@ -64,6 +65,17 @@ namespace Calc
             this.listResults.Size = new System.Drawing.Size(420, 276);
             this.listResults.TabIndex = 1;
             this.listResults.UseCompatibleStateImageBehavior = false;
+            this.listResults.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderExpression
+            // 
+            this.columnHeaderExpression.Text = "Expression";
+            this.columnHeaderExpression.Width = 271;
+            // 
+            // columnHeaderResult
+            // 
+            this.columnHeaderResult.Text = "Result";
+            this.columnHeaderResult.Width = 145;
             // 
             // splitContainer
             // 
