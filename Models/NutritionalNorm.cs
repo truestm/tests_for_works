@@ -9,7 +9,7 @@ namespace Biogenom_test.Models
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Nutrient")]
+        [ForeignKey(nameof(Nutrient))]
         public int NutrientId { get; set; }
 
         public Gender? Gender { get; set; }
@@ -24,6 +24,7 @@ namespace Biogenom_test.Models
 
         public string? Description { get; set; }
 
-        public virtual required Nutrient Nutrient { get; set; }
+        [InverseProperty(nameof(Nutrient.Norms))]
+        public virtual Nutrient? Nutrient { get; set; }
     }
 }
