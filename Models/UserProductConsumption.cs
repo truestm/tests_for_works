@@ -1,17 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biogenom_test.Models
 {
     [Table("UserProductConsumptions")]
+    [PrimaryKey(nameof(UserId), nameof(ProductId))]
     public class UserProductConsumption
     {
-        [Key, Column(Order = 0)]
-        [ForeignKey("User")]
+        [ForeignKey(nameof(User))]
         public int UserId { get; set; }
 
-        [Key, Column(Order = 1)]
-        [ForeignKey("Product")]
+        [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }
 
         [Required]
@@ -20,7 +20,10 @@ namespace Biogenom_test.Models
         [Required]
         public decimal TypicalPortionGrams { get; set; }
 
-        public virtual required User User { get; set; }
-        public virtual required Product Product { get; set; }
+        [InverseProperty(nameof(User.ProductConsumptions))]
+        public virtual User? User { get; set; }
+
+        [InverseProperty(nameof(Product.ConsumedByUsers))]
+        public virtual Product? Product { get; set; }
     }
 }

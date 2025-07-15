@@ -1,0 +1,112 @@
+[
+    {
+        "Id": 1,
+        "NutrientId": 1,
+        "Gender": "Male",
+        "MinAge": 18,
+        "MaxAge": 30,
+        "Lifestyle": "VeryActive",
+        "DailyNorm": 56.0,
+        "Description": "Норма белка для молодых активных мужчин"
+    },
+    {
+        "Id": 2,
+        "NutrientId": 1,
+        "Gender": "Female",
+        "MinAge": 18,
+        "MaxAge": 30,
+        "Lifestyle": "VeryActive",
+        "DailyNorm": 46.0,
+        "Description": "Норма белка для молодых активных женщин"
+    },
+    {
+        "Id": 3,
+        "NutrientId": 2,
+        "Gender": null,
+        "MinAge": 18,
+        "MaxAge": 70,
+        "Lifestyle": "Active",
+        "DailyNorm": 70.0,
+        "Description": "Норма жиров для взрослых"
+    },
+    {
+        "Id": 4,
+        "NutrientId": 3,
+        "Gender": null,
+        "MinAge": 18,
+        "MaxAge": 50,
+        "Lifestyle": "Active",
+        "DailyNorm": 310.0,
+        "Description": "Норма углеводов для активных взрослых"
+    },
+    {
+        "Id": 5,
+        "NutrientId": 4,
+        "Gender": null,
+        "MinAge": 18,
+        "MaxAge": 50,
+        "Lifestyle": "Moderate",
+        "DailyNorm": 25.0,
+        "Description": "Норма клетчатки"
+    },
+    {
+        "Id": 6,
+        "NutrientId": 5,
+        "Gender": "Male",
+        "MinAge": 18,
+        "MaxAge": 70,
+        "Lifestyle": "Sedentary",
+        "DailyNorm": 900.0,
+        "Description": "Витамин A для мужчин"
+    },
+    {
+        "Id": 7,
+        "NutrientId": 6,
+        "Gender": "Female",
+        "MinAge": 18,
+        "MaxAge": 70,
+        "Lifestyle": "Moderate",
+        "DailyNorm": 75.0,
+        "Description": "Витамин C для женщин"
+    },
+    {
+        "Id": 8,
+        "NutrientId": 7,
+        "Gender": null,
+        "MinAge": 18,
+        "MaxAge": 70,
+        "Lifestyle": "Sedentary",
+        "DailyNorm": 15.0,
+        "Description": "Витамин D для всех"
+    },
+    {
+        "Id": 9,
+        "NutrientId": 8,
+        "Gender": "Female",
+        "MinAge": 19,
+        "MaxAge": 50,
+        "Lifestyle": "Active",
+        "DailyNorm": 1000.0,
+        "Description": "Кальций для женщин"
+    },
+    {
+        "Id": 10,
+        "NutrientId": 9,
+        "Gender": "Female",
+        "MinAge": 19,
+        "MaxAge": 50,
+        "Lifestyle": "Moderate",
+        "DailyNorm": 18.0,
+        "Description": "Железо для женщин детородного возраста"
+    },
+    {
+        "Id": 11,
+        "NutrientId": 14,
+        "Gender": null,
+        "MinAge": 18,
+        "MaxAge": 70,
+        "Lifestyle": "Moderate",
+        "DailyNorm": 1.6,
+        "Description": "Омега-3 жирные кислоты"
+    }
+]

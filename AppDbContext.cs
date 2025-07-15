@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Biogenom_test.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Biogenom_test.Models
+namespace Biogenom_test
 {
     public class AppDbContext : DbContext
     {
@@ -11,7 +12,7 @@ namespace Biogenom_test.Models
         public DbSet<UserProductConsumption> UserProductConsumptions { get; set; }
         public DbSet<NutritionalNorm> NutritionalNorms { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
     }

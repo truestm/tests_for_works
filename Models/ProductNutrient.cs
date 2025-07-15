@@ -1,23 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biogenom_test.Models
 {
     [Table("ProductNutrients")]
+    [PrimaryKey(nameof(ProductId), nameof(NutrientId))]
     public class ProductNutrient
     {
-        [Key, Column(Order = 0)]
-        [ForeignKey("Product")]
+        [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }
 
-        [Key, Column(Order = 1)]
-        [ForeignKey("Nutrient")]
+        [ForeignKey(nameof(Nutrient))]
         public int NutrientId { get; set; }
 
         [Required]
         public decimal Amount { get; set; }
 
-        public virtual required Product Product { get; set; }
-        public virtual required Nutrient Nutrient { get; set; }
+        [InverseProperty(nameof(Product.Nutrients))]
+        public virtual Product? Product { get; set; }
+
+        [InverseProperty(nameof(Nutrient.ProductContents))]
+        public virtual Nutrient? Nutrient { get; set; }
     }
 }

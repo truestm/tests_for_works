@@ -21,7 +21,7 @@ namespace Biogenom_test.Models
         [Required]
         public Lifestyle Lifestyle { get; set; }
 
-        [InverseProperty("User")]
+        [InverseProperty(nameof(UserProductConsumption.User))]
         public virtual ICollection<UserProductConsumption> ProductConsumptions { get; set; } = new List<UserProductConsumption>();
     }
 }

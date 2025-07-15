@@ -1,0 +1,127 @@
+[
+    {
+        "ProductId": 1,
+        "NutrientId": 1,
+        "Amount": 23.0
+    },
+    {
+        "ProductId": 1,
+        "NutrientId": 2,
+        "Amount": 1.5
+    },
+    {
+        "ProductId": 2,
+        "NutrientId": 1,
+        "Amount": 20.0
+    },
+    {
+        "ProductId": 2,
+        "NutrientId": 2,
+        "Amount": 13.0
+    },
+    {
+        "ProductId": 2,
+        "NutrientId": 14,
+        "Amount": 2.2
+    },
+    {
+        "ProductId": 3,
+        "NutrientId": 1,
+        "Amount": 12.7
+    },
+    {
+        "ProductId": 3,
+        "NutrientId": 2,
+        "Amount": 11.5
+    },
+    {
+        "ProductId": 3,
+        "NutrientId": 5,
+        "Amount": 140.0
+    },
+    {
+        "ProductId": 4,
+        "NutrientId": 1,
+        "Amount": 2.9
+    },
+    {
+        "ProductId": 4,
+        "NutrientId": 2,
+        "Amount": 2.5
+    },
+    {
+        "ProductId": 4,
+        "NutrientId": 3,
+        "Amount": 4.7
+    },
+    {
+        "ProductId": 4,
+        "NutrientId": 8,
+        "Amount": 120.0
+    },
+    {
+        "ProductId": 5,
+        "NutrientId": 3,
+        "Amount": 40.0
+    },
+    {
+        "ProductId": 5,
+        "NutrientId": 4,
+        "Amount": 6.0
+    },
+    {
+        "ProductId": 6,
+        "NutrientId": 3,
+        "Amount": 14.0
+    },
+    {
+        "ProductId": 6,
+        "NutrientId": 6,
+        "Amount": 4.6
+    },
+    {
+        "ProductId": 7,
+        "NutrientId": 4,
+        "Amount": 2.6
+    },
+    {
+        "ProductId": 7,
+        "NutrientId": 6,
+        "Amount": 89.2
+    },
+    {
+        "ProductId": 8,
+        "NutrientId": 3,
+        "Amount": 17.0
+    },
+    {
+        "ProductId": 8,
+        "NutrientId": 11,
+        "Amount": 425.0
+    },
+    {
+        "ProductId": 9,
+        "NutrientId": 1,
+        "Amount": 12.6
+    },
+    {
+        "ProductId": 9,
+        "NutrientId": 3,
+        "Amount": 62.0
+    },
+    {
+        "ProductId": 9,
+        "NutrientId": 10,
+        "Amount": 200.0
+    },
+    {
+        "ProductId": 10,
+        "NutrientId": 2,
+        "Amount": 100.0
+    },
+    {
+        "ProductId": 10,
+        "NutrientId": 14,
+        "Amount": 0.8
+    }
+]

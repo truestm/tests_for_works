@@ -1,0 +1,72 @@
+[
+    {
+        "Id": 1,
+        "Name": "Белки",
+        "Unit": "Gram"
+    },
+    {
+        "Id": 2,
+        "Name": "Жиры",
+        "Unit": "Gram"
+    },
+    {
+        "Id": 3,
+        "Name": "Углеводы",
+        "Unit": "Gram"
+    },
+    {
+        "Id": 4,
+        "Name": "Клетчатка",
+        "Unit": "Gram"
+    },
+    {
+        "Id": 5,
+        "Name": "Витамин A",
+        "Unit": "Microgram"
+    },
+    {
+        "Id": 6,
+        "Name": "Витамин C",
+        "Unit": "Milligram"
+    },
+    {
+        "Id": 7,
+        "Name": "Витамин D",
+        "Unit": "Microgram"
+    },
+    {
+        "Id": 8,
+        "Name": "Кальций",
+        "Unit": "Milligram"
+    },
+    {
+        "Id": 9,
+        "Name": "Железо",
+        "Unit": "Milligram"
+    },
+    {
+        "Id": 10,
+        "Name": "Магний",
+        "Unit": "Milligram"
+    },
+    {
+        "Id": 11,
+        "Name": "Калий",
+        "Unit": "Milligram"
+    },
+    {
+        "Id": 12,
+        "Name": "Натрий",
+        "Unit": "Milligram"
+    },
+    {
+        "Id": 13,
+        "Name": "Цинк",
+        "Unit": "Milligram"
+    },
+    {
+        "Id": 14,
+        "Name": "Омега-3",
+        "Unit": "Gram"
+    }
+]
