@@ -1,6 +1,0 @@
-@Biogenom_test_HostAddress = http://localhost:5072
-
-GET {{Biogenom_test_HostAddress}}/analyze/1
-Accept: application/json
-
-###
