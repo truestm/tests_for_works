@@ -1,6 +1,6 @@
 ﻿namespace Biogenom_test.Models.Dto
 {
-    public record ProductConsumptionDto(
+    public record ConsumptionDto(
         int ProductId,
         int TimesPerMonth,
         decimal TypicalPortionGrams);

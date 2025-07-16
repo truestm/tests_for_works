@@ -1,4 +1,5 @@
 ﻿using Biogenom_test.Models.Dto;
+using Biogenom_test.Models.Dto.Converters;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biogenom_test.Models.Services
@@ -6,39 +7,14 @@ namespace Biogenom_test.Models.Services
     public class AnalysisService : IAnalysisService
     {
         private readonly AppDbContext _context;
+        private readonly IUsersService _users;
+        private readonly IQuestionnairesService _questionnaires;
 
-        public AnalysisService(AppDbContext context)
+        public AnalysisService(AppDbContext context, IUsersService users, IQuestionnairesService questionnaires)
         {
             _context = context;
-        }
-
-        public async Task Update(int userId, QuestionnaireDto dto)
-        {
-            var user = await _context.Users
-                .Include(u => u.ProductConsumptions)
-                .FirstOrDefaultAsync(u => u.Id == userId);
-
-            if (user == null)
-                throw new KeyNotFoundException("User not found");
-
-            user.BirthDate = dto.User.BirthDate;
-            user.Weight = dto.User.Weight;
-            user.Gender = dto.User.Gender;
-            user.Lifestyle = dto.User.Lifestyle;
-
-            user.ProductConsumptions.Clear();
-
-            foreach (var pc in dto.ProductConsumptions)
-            {
-                user.ProductConsumptions.Add(new UserProductConsumption
-                {
-                    ProductId = pc.ProductId,
-                    TimesPerMonth = pc.TimesPerMonth,
-                    TypicalPortionGrams = pc.TypicalPortionGrams
-                });
-            }
-
-            await _context.SaveChangesAsync();
+            _users = users;
+            _questionnaires = questionnaires;
         }
 
         public async Task<AnalysisResultDto> Analyze(int userId)

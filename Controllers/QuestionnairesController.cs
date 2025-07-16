@@ -1,4 +1,4 @@
-﻿using Biogenom_test.Helpers;
+using Biogenom_test.Helpers;
 using Biogenom_test.Models.Dto;
 using Biogenom_test.Models.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -7,17 +7,17 @@ namespace Biogenom_test.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class QuestionnairesController : ControllerBase
     {
-        private readonly IUsersService _service;
+        private readonly IQuestionnairesService _service;
 
-        public UsersController(IUsersService service)
+        public QuestionnairesController(IQuestionnairesService service)
         {
             _service = service;
         }
 
         [HttpPut("update/{userId}")]
-        public async Task<IActionResult> Update(int userId, [FromBody] UserDto dto)
+        public async Task<ActionResult> Update(int userId, [FromBody] QuestionnaireDto dto)
         {
             try
             {

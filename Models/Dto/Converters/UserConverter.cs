@@ -3,7 +3,7 @@
     public static class UserConverter
     {
         public static UserDto ToDto(this User db) => 
-            new UserDto(db.BirthDate, db.Weight, db.Gender, db.Lifestyle);
+            new(db.BirthDate, db.Weight, db.Gender, db.Lifestyle);
 
         public static User ToDb(this UserDto dto, User db)
         {

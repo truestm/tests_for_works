@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Biogenom_test.Controllers
+namespace Biogenom_test.Helpers
 {
     public static class ExceptionHelper
     {

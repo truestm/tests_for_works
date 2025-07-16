@@ -4,6 +4,7 @@ namespace Biogenom_test.Models.Services
 {
     public interface IUsersService
     {
-        Task<UserResultDto> Update(int userId, UserDto dto);
+        Task<User> GetAsync(int userId);
+        Task<User> UpdateAsync(int userId, UserDto dto);
     }
 }
