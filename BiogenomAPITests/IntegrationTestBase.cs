@@ -1,20 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using AngleSharp.Io;
+using BiogenomAPI;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Xunit;
 
-namespace Tests
+namespace BiogenomAPITests
 {
-    public class IntegrationTestBase : IClassFixture<CustomWebApplicationFactory<BiogenomAPI.Program>>
+    public class IntegrationTestBase : IAsyncLifetime
     {
-        protected readonly HttpClient _client;
-        protected readonly CustomWebApplicationFactory<BiogenomAPI.Program> _factory;
+        protected readonly CustomWebApplicationFactory<Program> Factory;
+        protected readonly HttpClient Client;
 
-        public IntegrationTestBase(CustomWebApplicationFactory<BiogenomAPI.Program> factory)
+        protected static StringContent ToContentJson<T>(T obj) =>
+            new StringContent(JsonSerializer.Serialize(obj), Encoding.UTF8, "application/json");
+
+        protected static async Task<T?> FromContentJsonAsync<T>(HttpResponseMessage message)
         {
-            _factory = factory;
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            var options = new JsonSerializerOptions
             {
-                AllowAutoRedirect = false
-            });
+                PropertyNameCaseInsensitive = true,
+                Converters = { new JsonStringEnumConverter() }
+            };
+            return await JsonSerializer.DeserializeAsync<T>(await message.Content.ReadAsStreamAsync(), options);
+        }
+
+        protected IntegrationTestBase()
+        {
+            Factory = new CustomWebApplicationFactory<Program>();
+            Client = Factory.CreateClient();
+        }
+
+        public async Task DisposeAsync()
+        {
+        }
+
+        public async Task InitializeAsync()
+        {
         }
     }
 }

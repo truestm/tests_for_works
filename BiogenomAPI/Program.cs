@@ -1,5 +1,6 @@
 using BiogenomAPI.Models.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace BiogenomAPI
 {
@@ -17,7 +18,11 @@ namespace BiogenomAPI
 
         private static void ConfigureControllers(WebApplicationBuilder builder)
         {
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
         }
 
         private static void InitializeDb(WebApplication app)
