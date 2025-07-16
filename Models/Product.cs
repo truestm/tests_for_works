@@ -15,7 +15,7 @@ namespace Biogenom_test.Models
         [InverseProperty(nameof(ProductNutrient.Product))]
         public virtual ICollection<ProductNutrient> Nutrients { get; init; } = new List<ProductNutrient>();
 
-        [InverseProperty(nameof(UserProductConsumption.Product))]
-        public virtual ICollection<UserProductConsumption> ConsumedByUsers { get; set; } = new List<UserProductConsumption>();
+        [InverseProperty(nameof(Consumption.Product))]
+        public virtual ICollection<Consumption> ConsumedByUsers { get; set; } = new List<Consumption>();
     }
 }

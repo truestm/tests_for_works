@@ -13,26 +13,36 @@ namespace Biogenom_test.Models.Services
             _context = context;
         }
 
-        public async Task<UserResultDto> Update(int userId, UserDto dto)
+        public async Task<User> GetAsync(int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            return user != null ? user : throw new KeyNotFoundException("User not found");
+        }
+
+        public async Task<User> AddAsync(UserDto dto)
+        {
+            var user = await _context.Users.AddAsync(dto.ToDb());
+
+            await _context.SaveChangesAsync();
+
+            return user.Entity;
+        }
+
+        public async Task<User> UpdateAsync(int userId, UserDto dto)
         {
             if (userId == 0)
             {
-                var user = await _context.Users.AddAsync(dto.ToDb());
-                return new UserResultDto(user.Entity.Id, user.Entity.ToDto());
+                return await AddAsync(dto);
             }
             else
             {
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Id == userId);
-                
-                if (user == null)
-                    throw new KeyNotFoundException("User not found");
+                var user = await GetAsync(userId);
 
                 dto.ToDb(user);
                 
                 await _context.SaveChangesAsync();
 
-                return new UserResultDto(user.Id, user.ToDto());
+                return user;
             }
         }
     }

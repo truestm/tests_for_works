@@ -1,3 +1,4 @@
+using Biogenom_test.Models.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biogenom_test
@@ -8,6 +9,10 @@ namespace Biogenom_test
         {
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IUsersService, UsersService>();
+            builder.Services.AddScoped<IQuestionnairesService, QuestionnairesService>();
+            builder.Services.AddScoped<IAnalysisService, AnalysisService>();
         }
 
         private static void ConfigureControllers(WebApplicationBuilder builder)

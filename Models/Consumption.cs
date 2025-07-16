@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biogenom_test.Models
 {
-    [Table("UserProductConsumptions")]
+    [Table("Consumptions")]
     [PrimaryKey(nameof(UserId), nameof(ProductId))]
-    public class UserProductConsumption
+    public class Consumption
     {
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
@@ -20,7 +20,7 @@ namespace Biogenom_test.Models
         [Required]
         public decimal TypicalPortionGrams { get; set; }
 
-        [InverseProperty(nameof(User.ProductConsumptions))]
+        [InverseProperty(nameof(User.Consumptions))]
         public virtual User? User { get; set; }
 
         [InverseProperty(nameof(Product.ConsumedByUsers))]
