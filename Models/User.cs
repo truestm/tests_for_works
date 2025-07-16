@@ -10,7 +10,7 @@ namespace Biogenom_test.Models
         public int Id { get; set; }
 
         [Required]
-        public int Age { get; set; }
+        public DateOnly BirthDate { get; set; }
 
         [Required]
         public decimal Weight { get; set; }

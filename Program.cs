@@ -1,4 +1,3 @@
-using Biogenom_test.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biogenom_test
