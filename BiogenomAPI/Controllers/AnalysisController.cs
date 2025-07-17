@@ -1,5 +1,6 @@
 using BiogenomAPI.Helpers;
 using BiogenomAPI.Models.Dto;
+using BiogenomAPI.Models.Dto.Converters;
 using BiogenomAPI.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,19 +11,23 @@ namespace BiogenomAPI.Controllers
     public class AnalysisController : ControllerBase
     {
         private readonly IAnalysisService _service;
+        private readonly IUsersService _users;
 
-        public AnalysisController(IAnalysisService service)
+        public AnalysisController(IAnalysisService service, IUsersService users )
         {
             _service = service;
+            _users = users;
         }
 
-        [HttpGet("analyze/{userId}")]
+        [HttpGet("{userId}")]
         public async Task<ActionResult<AnalysisResultDto>> Analyze(int userId)
         {
             try
             {
-                var result = await _service.Analyze(userId);
-                return Ok(result);
+                var user = await _users.GetAsync(userId);
+                var consumptions = await _service.GetConsumptionsAsync(user);
+
+                return Ok(new AnalysisResultDto(new UserResultDto(user.Id, user.ToDto()), consumptions.ToDto()));
             }
             catch (Exception ex)
             {

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace BiogenomAPITests
 {
-    public class IntegrationTestBase : IAsyncLifetime
+    public class IntegrationTestBase
     {
         protected readonly CustomWebApplicationFactory<Program> Factory;
         protected readonly HttpClient Client;
@@ -29,14 +29,6 @@ namespace BiogenomAPITests
         {
             Factory = new CustomWebApplicationFactory<Program>();
             Client = Factory.CreateClient();
-        }
-
-        public async Task DisposeAsync()
-        {
-        }
-
-        public async Task InitializeAsync()
-        {
         }
     }
 }

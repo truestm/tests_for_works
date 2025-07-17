@@ -4,6 +4,6 @@ namespace BiogenomAPI.Models.Services
 {
     public interface IAnalysisService
     {
-        Task<AnalysisResultDto> Analyze(int userId);
+        Task<List<NutrientAnalysisResult>> GetConsumptionsAsync(User user);
     }
 }

@@ -12,7 +12,7 @@ Accept: application/json
 ###
 
 
-GET {{Biogenom_test_HostAddress}}/api/analyze/0
+GET {{Biogenom_test_HostAddress}}/api/analysis/1
 Accept: application/json
 
 ###
