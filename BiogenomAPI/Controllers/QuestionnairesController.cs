@@ -1,5 +1,6 @@
 using BiogenomAPI.Helpers;
 using BiogenomAPI.Models.Dto;
+using BiogenomAPI.Models.Dto.Converters;
 using BiogenomAPI.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,20 @@ namespace BiogenomAPI.Controllers
         public QuestionnairesController(IQuestionnairesService service)
         {
             _service = service;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<QuestionnaireDto>> Get(int userId)
+        {
+            try
+            {
+                var consumptions = await _service.GetConsumptionsAsync(userId);
+                return Ok(new QuestionnaireDto(new UserResultDto(userId, null), consumptions.ToDto()));
+            }
+            catch (Exception ex)
+            {
+                return ex.ToActionResult(this);
+            }
         }
 
         [HttpPut("update/{userId}")]
