@@ -9,8 +9,10 @@ namespace Tests
     public class UsersControllerTests : IntegrationTestBase
     {
         [Fact]
-        public async Task Create_Read_Update()
+        public async Task Create_Update()
         {
+            #region Create
+
             UserResultDto? createResult;
             {
                 var user = new UserDto(new DateOnly(2000, 1, 1), 70, Gender.Male, Lifestyle.Active);
@@ -40,6 +42,10 @@ namespace Tests
                 Assert.Equal(Gender.Male, result?.Gender);
                 Assert.Equal(Lifestyle.Active, result?.Lifestyle);
             }
+
+            #endregion
+
+            #region Update
 
             {
                 var user = new UserDto(new DateOnly(2002, 2, 2), 72, Gender.Female, Lifestyle.Moderate);
@@ -71,6 +77,8 @@ namespace Tests
                 Assert.Equal(Gender.Female, result?.Gender);
                 Assert.Equal(Lifestyle.Moderate, result?.Lifestyle);
             }
+
+            #endregion
         }
     }
 }

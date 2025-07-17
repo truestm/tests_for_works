@@ -1,4 +1,4 @@
 ﻿namespace BiogenomAPI.Models.Dto
 {
-    public record QuestionnaireDto(UserDto User, ConsumptionDto[] Consumptions);
+    public record QuestionnaireDto(UserResultDto? Owner, ConsumptionDto[] Consumptions);
 }
