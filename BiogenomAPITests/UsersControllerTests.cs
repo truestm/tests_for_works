@@ -6,6 +6,7 @@ using Xunit;
 
 namespace Tests
 {
+    [Collection("Integration")]
     public class UsersControllerTests : IntegrationTestBase
     {
         [Fact]

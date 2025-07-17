@@ -1,26 +1,43 @@
 [
     {
-        "Id": 1,
         "NutrientId": 1,
         "Gender": "Male",
         "MinAge": 18,
         "MaxAge": 30,
         "Lifestyle": "VeryActive",
-        "DailyNorm": 56.0,
+        "DailyNorm": 0,
+		"DailyNormWeight": 3.0,
         "Description": "Норма белка для молодых активных мужчин"
     },
     {
-        "Id": 2,
         "NutrientId": 1,
         "Gender": "Female",
         "MinAge": 18,
         "MaxAge": 30,
         "Lifestyle": "VeryActive",
-        "DailyNorm": 46.0,
+        "DailyNorm": 0,
+		"DailyNormWeight": 2.6,
         "Description": "Норма белка для молодых активных женщин"
     },
     {
-        "Id": 3,
+        "NutrientId": 1,
+        "Gender": "Male",
+        "MinAge": 18,
+        "MaxAge": 30,
+        "Lifestyle": "Moderate",
+        "DailyNorm": 66.0,
+        "Description": "Норма белка для молодых мужчин"
+    },
+    {
+        "NutrientId": 1,
+        "Gender": "Female",
+        "MinAge": 18,
+        "MaxAge": 30,
+        "Lifestyle": "Moderate",
+        "DailyNorm": 56.0,
+        "Description": "Норма белка для молодых женщин"
+    },
+    {
         "NutrientId": 2,
         "Gender": null,
         "MinAge": 18,
@@ -30,7 +47,6 @@
         "Description": "Норма жиров для взрослых"
     },
     {
-        "Id": 4,
         "NutrientId": 3,
         "Gender": null,
         "MinAge": 18,
@@ -40,7 +56,6 @@
         "Description": "Норма углеводов для активных взрослых"
     },
     {
-        "Id": 5,
         "NutrientId": 4,
         "Gender": null,
         "MinAge": 18,
@@ -50,7 +65,6 @@
         "Description": "Норма клетчатки"
     },
     {
-        "Id": 6,
         "NutrientId": 5,
         "Gender": "Male",
         "MinAge": 18,
@@ -60,7 +74,6 @@
         "Description": "Витамин A для мужчин"
     },
     {
-        "Id": 7,
         "NutrientId": 6,
         "Gender": "Female",
         "MinAge": 18,
@@ -70,7 +83,6 @@
         "Description": "Витамин C для женщин"
     },
     {
-        "Id": 8,
         "NutrientId": 7,
         "Gender": null,
         "MinAge": 18,
@@ -80,7 +92,6 @@
         "Description": "Витамин D для всех"
     },
     {
-        "Id": 9,
         "NutrientId": 8,
         "Gender": "Female",
         "MinAge": 19,
@@ -90,7 +101,6 @@
         "Description": "Кальций для женщин"
     },
     {
-        "Id": 10,
         "NutrientId": 9,
         "Gender": "Female",
         "MinAge": 19,
@@ -100,7 +110,6 @@
         "Description": "Железо для женщин детородного возраста"
     },
     {
-        "Id": 11,
         "NutrientId": 14,
         "Gender": null,
         "MinAge": 18,

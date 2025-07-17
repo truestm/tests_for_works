@@ -17,11 +17,11 @@ namespace BiogenomAPI.Models
         public int? MaxAge { get; set; }
 
         [Required]
-        public Lifestyle Lifestyle { get; set; }
+        public Lifestyle? Lifestyle { get; set; }
 
-        [Required]
-        public decimal DailyNorm { get; set; }
-
+        public decimal? DailyNorm { get; set; }
+        public decimal? DailyNormWeight { get; set; }
+        
         public string? Description { get; set; }
 
         [InverseProperty(nameof(Nutrient.Norms))]

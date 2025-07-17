@@ -31,16 +31,17 @@ namespace BiogenomAPI
             {
                 var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-                context.Database.EnsureCreated();
+                if (context.Database.EnsureCreated())
+                {
+                    var predefines = Path.Combine(AppContext.BaseDirectory, "Predefines");
 
-                var predefines = Path.Combine(AppContext.BaseDirectory, "Predefines");
+                    context.Nutrients.ImportJson(Path.Combine(predefines, "Nutrients.json"));
+                    context.Products.ImportJson(Path.Combine(predefines, "Products.json"));
+                    context.ProductNutrients.ImportJson(Path.Combine(predefines, "ProductNutrients.json"));
+                    context.NutritionalNorms.ImportJson(Path.Combine(predefines, "NutritionalNorms.json"));
 
-                context.Nutrients.ImportJson(Path.Combine(predefines, "Nutrients.json"));
-                context.Products.ImportJson(Path.Combine(predefines, "Products.json"));
-                context.ProductNutrients.ImportJson(Path.Combine(predefines, "ProductNutrients.json"));
-                context.NutritionalNorms.ImportJson(Path.Combine(predefines, "NutritionalNorms.json"));
-
-                context.SaveChanges();
+                    context.SaveChanges();
+                }
             }
         }
 
