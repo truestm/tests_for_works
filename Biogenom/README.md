@@ -1,5 +1,7 @@
 Тестовое задание.
 
+[Тех. задание](tz.pdf)
+
 Задача.
 
 Web API проект без Minimal API и top-level statements, используется Microsoft.EntityFrameworkCore и Npgsql.EntityFrameworkCore.PostgreSQL
